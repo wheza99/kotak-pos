@@ -11,6 +11,7 @@ import publicRoutes from "./routes/index.js";
 import walletRoutes from "./routes/wallet.js";
 import paymentRoutes from "./routes/payment.js";
 import agentsRoutes from "./routes/agents.js";
+import mailRoutes from "./routes/mail.js";
 
 const VERSION = pkg.version;
 
@@ -32,6 +33,7 @@ app.use("*", cors(corsConfig));
 // ============================================
 
 app.use("/api/agents", x402Middleware);
+app.use("/api/mail", x402Middleware);
 
 // ============================================
 // REGISTER ROUTES
@@ -41,6 +43,7 @@ app.route("/", publicRoutes);
 app.route("/", walletRoutes);
 app.route("/", paymentRoutes);
 app.route("/", agentsRoutes);
+app.route("/", mailRoutes);
 
 // ============================================
 // START SERVER

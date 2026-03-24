@@ -39,6 +39,12 @@ publicRoutes.get("/", (c) => {
         "POST /api/agents - Create agent {name, role} ($0.01)",
         "DELETE /api/agents/:id - Delete agent ($0.01)",
       ],
+      mail: [
+        "GET /api/mail?type=inbox|sent|all - List mails ($0.01)",
+        "POST /api/mail - Send mail {from_id, to_id, subject, body} ($0.01)",
+        "GET /api/mail/:id - Get mail ($0.01)",
+        "DELETE /api/mail/:id - Delete mail ($0.01)",
+      ],
       payment: [
         'POST /api/pay - Pay for any URL (body: {walletId, secretKey, url})',
       ],

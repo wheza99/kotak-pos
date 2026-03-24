@@ -21,6 +21,11 @@ export const pricing: Record<string, PricingConfig> = {
     description: "Agents API - create, list, delete",
     maxTimeoutSeconds: 60,
   },
+  "/api/mail": {
+    price: "$0.01",
+    description: "Mail API - send, list, read, delete",
+    maxTimeoutSeconds: 60,
+  },
 };
 
 // ============================================
