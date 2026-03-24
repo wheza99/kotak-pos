@@ -1,5 +1,8 @@
 import { Hono } from "hono";
 import { config, pricing } from "../config/index.js";
+import pkg from "../../package.json" with { type: "json" };
+
+const VERSION = pkg.version;
 
 const publicRoutes = new Hono();
 
@@ -9,14 +12,18 @@ const publicRoutes = new Hono();
 
 publicRoutes.get("/", (c) => {
   // Build premium endpoints list from pricing
-  const premiumEndpoints = Object.entries(pricing).map(([path, p]) => {
-    const name = path.replace("/api/premium/", "");
-    return `GET ${path} - ${p.description} (${p.price})`;
-  });
+  const premiumEndpoints = Object.entries(pricing)
+    .filter(([path]) => path.startsWith("/api/premium"))
+    .map(([path, p]) => `GET ${path} - ${p.description} (${p.price})`);
+
+  // Build agents endpoints
+  const agentsEndpoints = Object.entries(pricing)
+    .filter(([path]) => path.startsWith("/api/agents"))
+    .map(([path, p]) => `${path} - ${p.description} (${p.price})`);
 
   return c.json({
     message: "Welcome to Kotak Pos API! 🚀",
-    version: "0.1.3",
+    version: VERSION,
     features: {
       x402Payments: true,
       clientWallets: true,
@@ -35,6 +42,11 @@ publicRoutes.get("/", (c) => {
         "POST /api/wallet - Create new wallet (returns secret_key & recovery_code)",
         "GET /api/wallet?walletId=xxx - Get balance & funding info",
         "POST /api/wallet/reset - Reset secret key with recovery code",
+      ],
+      agents: [
+        "GET /api/agents - List agents ($0.01)",
+        "POST /api/agents - Create agent {name, role} ($0.01)",
+        "DELETE /api/agents/:id - Delete agent ($0.01)",
       ],
       premium: premiumEndpoints,
       payment: [
@@ -67,7 +79,7 @@ publicRoutes.get("/health", (c) => {
 publicRoutes.get("/api/status", (c) => {
   return c.json({
     status: "ok",
-    version: "0.1.3",
+    version: VERSION,
     businessModel: "client-pays",
     features: {
       x402Payments: true,

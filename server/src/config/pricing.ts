@@ -31,6 +31,12 @@ export const pricing: Record<string, PricingConfig> = {
     description: "Deep market analysis",
     maxTimeoutSeconds: 180,
   },
+  // Agents API
+  "/api/agents": {
+    price: "$0.01",
+    description: "List agents by wallet ID",
+    maxTimeoutSeconds: 60,
+  },
 };
 
 // ============================================

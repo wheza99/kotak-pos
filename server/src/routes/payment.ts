@@ -8,13 +8,13 @@ const paymentRoutes = new Hono();
 // ============================================
 // PAY FOR ANY URL
 // POST /api/pay
-// Body: { walletId, secretKey, url }
+// Body: { walletId, secretKey, url, method?, body? }
 // ============================================
 
 paymentRoutes.post("/api/pay", async (c) => {
   try {
     const body = await c.req.json();
-    const { walletId, secretKey, url } = body;
+    const { walletId, secretKey, url, method, body: requestBody } = body;
 
     if (!walletId) {
       return c.json(
@@ -70,7 +70,34 @@ paymentRoutes.post("/api/pay", async (c) => {
 
     console.log(`💰 Client ${wallet.address} paying for: ${url}`);
 
-    const result = await paidFetch(url, wallet.id, wallet.address);
+    // Build fetch options
+    const fetchOptions: RequestInit = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // Handle method and body
+    const requestMethod = method || "GET";
+    fetchOptions.method = requestMethod;
+
+    if (requestBody && requestMethod !== "GET") {
+      // Auto-inject wallet_id into body
+      fetchOptions.body = JSON.stringify({
+        ...requestBody,
+        wallet_id: walletId,
+      });
+    }
+
+    // Auto-inject wallet_id into URL query param for GET requests
+    let targetUrl = url;
+    if (requestMethod === "GET") {
+      const urlObj = new URL(url);
+      urlObj.searchParams.set("wallet_id", walletId);
+      targetUrl = urlObj.toString();
+    }
+
+    const result = await paidFetch(targetUrl, wallet.id, wallet.address, fetchOptions);
 
     return c.json({
       success: !result.error,
