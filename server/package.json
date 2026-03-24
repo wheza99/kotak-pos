@@ -1,12 +1,12 @@
 {
   "name": "kotak-pos-server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "pabrikstartup.id",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/src/index.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.11",

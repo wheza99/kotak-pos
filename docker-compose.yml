@@ -1,13 +1,17 @@
 services:
   landing:
+    container_name: kotak-pos-landing
     build:
       context: ./landing
       dockerfile: Dockerfile
     ports:
       - "3001:3000"
     restart: unless-stopped
+    networks:
+      - npm
 
   server:
+    container_name: kotak-pos-server
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -18,12 +22,19 @@ services:
       - PORT=4000
       - PRIVY_APP_ID=${PRIVY_APP_ID}
       - PRIVY_APP_SECRET=${PRIVY_APP_SECRET}
+      - PRIVY_AUTH_ID=${PRIVY_AUTH_ID}
       - PRIVY_AUTH_PRIVATE_KEY=${PRIVY_AUTH_PRIVATE_KEY}
       - X402_PAY_TO_ADDRESS=${X402_PAY_TO_ADDRESS}
       - X402_NETWORK=${X402_NETWORK:-base-sepolia}
+      - POCKETBASE_URL=http://kotak-pos-pocketbase:8080
+      - POCKETBASE_ADMIN_EMAIL=${POCKETBASE_ADMIN_EMAIL}
+      - POCKETBASE_ADMIN_PASSWORD=${POCKETBASE_ADMIN_PASSWORD}
     restart: unless-stopped
+    networks:
+      - npm
 
   pocketbase:
+    container_name: kotak-pos-pocketbase
     build:
       context: ./pocketbase
       dockerfile: Dockerfile
@@ -33,3 +44,10 @@ services:
       - ./pocketbase/pb_data:/pb/pb_data
       - ./pocketbase/pb_migrations:/pb/pb_migrations
     restart: unless-stopped
+    networks:
+      - npm
+
+networks:
+  npm:
+    name: nginx-proxy-manager_default
+    external: true
