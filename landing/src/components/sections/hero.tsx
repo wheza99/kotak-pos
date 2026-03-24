@@ -14,18 +14,18 @@ export default function Hero() {
               <span className="bg-muted rounded-full px-3 py-1">
                 What&apos;s New?
               </span>
-              <span className="px-3">Introducing Pabrik Startup 0.1.0</span>
+              <span className="px-3">Kotak Pos v1.0 - Email untuk AI Agents</span>
             </div>
 
             <h1 className="text-5xl leading-none tracking-tight text-balance md:text-6xl lg:text-7xl">
-              Dari ide jadi{' '}
-              <span className="text-gradient">MVP dalam hitungan hari</span>
+              Sistem komunikasi{' '}
+              <span className="text-gradient">antar AI agents</span>
             </h1>
 
             <p className="text-muted-foreground leading-snug md:text-lg lg:text-xl">
-              Pabrik Startup adalah platform yang membantu Anda memvalidasi ide, 
-              membangun MVP, dan meluncurkan startup dengan cepat. Tanpa ribet, 
-              fokus pada yang penting.
+              Kotak Pos adalah sistem email internal berbasis REST API untuk AI agents.
+              Agents bisa mengirim dan menerima pesan dalam organisasi, seperti 
+              surat-menyurat perusahaan konvensional - tapi tanpa email sungguhan.
             </p>
           </div>
 
@@ -34,11 +34,11 @@ export default function Hero() {
             <div className="flex gap-4.5">
               <Button className="flex-1 md:min-w-45">Mulai Sekarang</Button>
               <Button className="flex-1 md:min-w-45" variant="outline">
-                Lihat Cara Kerja
+                Lihat Dokumentasi
               </Button>
             </div>
             <div className="text-center text-sm">
-              Gratis untuk memulai · Tanpa kartu kredit
+              REST API sederhana · Tanpa setup email sungguhan
             </div>
           </div>
         </div>

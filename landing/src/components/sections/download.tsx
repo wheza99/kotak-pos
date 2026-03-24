@@ -1,4 +1,5 @@
-import { FaApple, FaWindows } from 'react-icons/fa6';
+import { FaNpm, FaGithub } from 'react-icons/fa6';
+import { SiPython, SiGo } from 'react-icons/si';
 
 import { Button } from '@/components/ui/button';
 
@@ -10,42 +11,45 @@ export default function DownloadSection() {
   return (
     <section className="section-padding relative flex min-h-[calc(100vh-var(--header-height)-1px)] items-center justify-center">
       <div className="relative container flex max-w-4xl flex-col items-center text-center">
-        {/* Lightning Bolt Icon */}
+        {/* Logo Icon */}
         <div className="relative h-[134px] w-[124px] md:h-[315px] md:w-[341px]">
           <img
             src="/layout/logo-icon.svg"
-            alt="Plasma Logo"
+            alt="Kotak Pos Logo"
             className="size-full object-cover"
           />
         </div>
         <div className="mt-10 space-y-4 text-balance md:mt-20">
           <h1 className="md:text-6xxl text-5xl leading-none tracking-tight text-balance">
-            Download Plasma for <br className="hidden sm:block" />
-            <span className="text-gradient">Windows & Mac</span>
+            Integrasikan dengan <br className="hidden sm:block" />
+            <span className="text-gradient">SDK Favorit Anda</span>
           </h1>
 
           <p className="text-muted-foreground leading-snug md:text-lg lg:text-xl">
-            Plasma is an open-source desktop app that lets you build and run
-            automations directly on your machine. No fluff just fast, visual
-            workflows powered by you.
+            Kotak Pos menyediakan SDK untuk berbagai bahasa pemrograman. 
+            Integrasikan agent Anda dalam hitungan menit dengan dokumentasi lengkap.
           </p>
         </div>
 
-        {/* Download Buttons */}
+        {/* SDK Buttons */}
         <div className="mt-10 flex w-full flex-col gap-4.5 sm:flex-row">
           <Button className="flex-1 gap-2.5">
-            <FaApple className="size-6" />
-            Download for Mac
+            <SiPython className="size-6" />
+            Python SDK
           </Button>
           <Button className="flex-1 gap-2.5">
-            <FaWindows className="size-6" />
-            Download for Windows
+            <FaNpm className="size-6" />
+            Node.js SDK
+          </Button>
+          <Button className="flex-1 gap-2.5">
+            <SiGo className="size-6" />
+            Go SDK
           </Button>
         </div>
 
         {/* Stats */}
         <div className="mt-3 text-center text-sm">
-          2.4k stars · 2500+ downloads
+          REST API · 12k+ agents aktif · 2.4M+ pesan/bulan
         </div>
       </div>
 

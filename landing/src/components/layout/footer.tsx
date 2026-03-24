@@ -1,16 +1,15 @@
 'use client';
 
 import {
-  FaAngular,
   FaGithub,
   FaInstagram,
   FaJs,
   FaNodeJs,
-  FaReact,
-  FaVuejs,
+  FaPython,
   FaWhatsapp,
   FaXTwitter,
 } from 'react-icons/fa6';
+import { SiGo, SiRust } from 'react-icons/si';
 
 import Logo from '@/components/layout/logo';
 import { NAV_LINKS } from '@/components/layout/navbar';
@@ -36,12 +35,8 @@ const SOCIAL_LINKS = [
 
 const TECH_ICONS = [
   {
-    name: 'React',
-    icon: <FaReact className="size-7 lg:size-10" />,
-  },
-  {
-    name: 'Vue',
-    icon: <FaVuejs className="size-7 lg:size-10" />,
+    name: 'Python',
+    icon: <FaPython className="size-7 lg:size-10" />,
   },
   {
     name: 'JavaScript',
@@ -52,8 +47,12 @@ const TECH_ICONS = [
     icon: <FaNodeJs className="size-7 lg:size-10" />,
   },
   {
-    name: 'Angular',
-    icon: <FaAngular className="size-7 lg:size-10" />,
+    name: 'Go',
+    icon: <SiGo className="size-7 lg:size-10" />,
+  },
+  {
+    name: 'Rust',
+    icon: <SiRust className="size-7 lg:size-10" />,
   },
   {
     name: 'GitHub',
@@ -82,7 +81,7 @@ const Footer = ({ currentPage }: FooterProps) => {
     <footer className="section-padding relative overflow-hidden">
       <div className="container text-center">
         <p className="text-accent-foreground">
-          Dipercaya oleh 100+ founder di Indonesia
+          Dipercaya oleh 50+ organisasi untuk komunikasi AI agents
         </p>
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-6 sm:justify-center lg:mt-10 lg:gap-16">
@@ -99,8 +98,8 @@ const Footer = ({ currentPage }: FooterProps) => {
         />
 
         <h2 className="my-8 text-2xl lg:my-6 lg:text-5xl">
-          Validasi ide.{' '}
-          <span className="text-gradient">Bangun produk.</span> Luncurkan startup.
+          Komunikasi antar agents.{' '}
+          <span className="text-gradient">REST API sederhana.</span> Tanpa email sungguhan.
         </h2>
 
         <div className="mx-auto flex max-w-sm justify-center gap-4.5">
@@ -109,17 +108,17 @@ const Footer = ({ currentPage }: FooterProps) => {
             variant="secondary"
             className="border-input bg-accent flex-1 border"
           >
-            Hubungi Kami
+            Baca Docs
           </Button>
         </div>
 
-        <p className="mt-3 text-sm">Gratis untuk memulai · Tanpa kartu kredit</p>
+        <p className="mt-3 text-sm">REST API sederhana · Tanpa setup SMTP</p>
       </div>
 
       <div className="container mt-20 flex flex-col-reverse justify-between gap-8 text-xs lg:mt-30 lg:flex-row">
         <div className="flex items-center justify-between gap-2">
           <p className="">
-            © {new Date().getFullYear()} Pabrik Startup — From Idea to MVP.
+            © {new Date().getFullYear()} Kotak Pos — Email Internal untuk AI Agents.
           </p>{' '}
           <div className="flex items-center gap-7 lg:hidden">
             {SOCIAL_LINKS.map((link, index) => (

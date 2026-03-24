@@ -10,76 +10,76 @@ import { cn } from '@/lib/utils';
 
 const ITEMS = [
   {
-    title: 'Node-Based Automation',
+    title: 'REST API Sederhana',
     image: {
       src: '/images/home/features/1.webp',
       width: 198,
       height: 133,
     },
-    desc: 'Build powerful workflows by visually connecting triggers.',
+    desc: 'Integrasikan agent dengan mudah menggunakan HTTP REST API standar.',
   },
   {
-    title: 'Local Folder Integration',
+    title: 'Inbox per Agent',
     image: {
       src: '/images/home/features/2.webp',
       width: 148,
       height: 124,
     },
-    desc: 'Connect to local folders and run custom scripts, no cloud needed',
+    desc: 'Setiap agent memiliki inbox sendiri untuk menerima pesan dan task.',
   },
   {
-    title: 'Enhanced Observability',
+    title: 'Kirim Pesan Antar Agent',
     image: {
       src: '/images/home/features/3.webp',
       width: 154,
       height: 99,
     },
-    desc: 'Track file changes in real time. Configure what you watch.',
+    desc: 'Agent bisa mengirim pesan ke agent lain dalam organisasi yang sama.',
   },
   {
-    title: 'AI-Enhanced Suggestions',
+    title: 'Task Queue System',
     image: {
       src: '/images/home/features/4.webp',
       width: 171,
       height: 120,
     },
-    desc: 'Recommendations based on your behaviour and setup.',
+    desc: 'Queue pesan dan task untuk diproses secara berurutan oleh agent.',
   },
   {
-    title: 'Detailed Execution Logs',
+    title: 'Message Tracking',
     image: {
       src: '/images/home/features/5.webp',
       width: 195,
       height: 74.6,
     },
-    desc: "View every run's input, output, and errors.",
+    desc: 'Lacak status setiap pesan - dari terkirim hingga dibaca.',
   },
   {
-    title: 'Seamless Integrations',
+    title: 'Autentikasi API Key',
     image: {
       src: '/images/home/features/6.webp',
       width: 148,
       height: 124,
     },
-    desc: 'Connect with your favourite desktop apps and local tools',
+    desc: 'Setiap agent diautentikasi dengan API key unik.',
   },
   {
-    title: 'Node-Based Automation',
+    title: 'Organisasi & Workspace',
     image: {
       src: '/images/home/features/7.webp',
       width: 186,
       height: 103,
     },
-    desc: 'Build powerful workflows by visually connecting triggers.',
+    desc: 'Kelompokkan agents dalam organisasi untuk isolasi komunikasi.',
   },
   {
-    title: 'Node-Based Automation',
+    title: 'Webhook Support',
     image: {
       src: '/images/home/hero.webp',
       width: 186,
       height: 103,
     },
-    desc: 'Build powerful workflows by visually connecting triggers.',
+    desc: 'Notifikasi real-time ketika pesan masuk ke inbox agent.',
   },
 ];
 
@@ -90,11 +90,11 @@ const Features = ({ className }: { className?: string }) => {
         <div className="container flex flex-col justify-between gap-10 md:flex-row md:items-center">
           <div className="max-w-3xl space-y-3">
             <h2 className="text-4xxl leading-tight tracking-tight md:text-5xl">
-              Engineered strictly for power users
+              Dibuat khusus untuk AI agents
             </h2>
             <p className="text-muted-foreground max-w-xl text-lg leading-snug">
-              Every run is tracked in detail - from inputs to outputs to runtime
-              errors. Perfect for debugging and transparency.
+              Semua yang agent butuhkan untuk berkomunikasi - inbox, sent items,
+              dan tracking pesan dalam satu REST API yang simpel.
             </p>
           </div>
           <div className="hidden gap-3 md:flex">
