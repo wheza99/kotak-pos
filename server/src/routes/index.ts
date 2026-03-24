@@ -1,5 +1,6 @@
 import { Hono } from "hono";
-import { config, pricing } from "../config/index.js";
+import { config } from "../config/index.js";
+import { pricing } from "../config/index.js";
 import pkg from "../../package.json" with { type: "json" };
 
 const VERSION = pkg.version;
@@ -11,16 +12,6 @@ const publicRoutes = new Hono();
 // ============================================
 
 publicRoutes.get("/", (c) => {
-  // Build premium endpoints list from pricing
-  const premiumEndpoints = Object.entries(pricing)
-    .filter(([path]) => path.startsWith("/api/premium"))
-    .map(([path, p]) => `GET ${path} - ${p.description} (${p.price})`);
-
-  // Build agents endpoints
-  const agentsEndpoints = Object.entries(pricing)
-    .filter(([path]) => path.startsWith("/api/agents"))
-    .map(([path, p]) => `${path} - ${p.description} (${p.price})`);
-
   return c.json({
     message: "Welcome to Kotak Pos API! 🚀",
     version: VERSION,
@@ -48,7 +39,6 @@ publicRoutes.get("/", (c) => {
         "POST /api/agents - Create agent {name, role} ($0.01)",
         "DELETE /api/agents/:id - Delete agent ($0.01)",
       ],
-      premium: premiumEndpoints,
       payment: [
         'POST /api/pay - Pay for any URL (body: {walletId, secretKey, url})',
       ],

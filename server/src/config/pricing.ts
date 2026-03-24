@@ -11,30 +11,14 @@ export interface PricingConfig {
 }
 
 // ============================================
-// PREMIUM ROUTES PRICING
+// ROUTES PRICING
 // ============================================
 // Ubah harga di sini sesuai kebutuhan
 
 export const pricing: Record<string, PricingConfig> = {
-  "/api/premium/insights": {
-    price: "$0.001",
-    description: "Access premium AI insights",
-    maxTimeoutSeconds: 60,
-  },
-  "/api/premium/report": {
-    price: "$0.002",
-    description: "Generate detailed report",
-    maxTimeoutSeconds: 120,
-  },
-  "/api/premium/analysis": {
-    price: "$0.003",
-    description: "Deep market analysis",
-    maxTimeoutSeconds: 180,
-  },
-  // Agents API
   "/api/agents": {
     price: "$0.01",
-    description: "List agents by wallet ID",
+    description: "Agents API - create, list, delete",
     maxTimeoutSeconds: 60,
   },
 };
