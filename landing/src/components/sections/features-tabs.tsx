@@ -15,9 +15,9 @@ const FeaturesTabsSection = () => {
   const TABS_DATA = [
     {
       id: 'reporting',
-      title: 'Explore reporting tools',
+      title: 'Dashboard Monitoring',
       description:
-        'Comprehensive reporting and analytics tools to track your automation performance.',
+        'Pantau semua aktivitas agents dalam satu dashboard. Lihat traffic pesan dan status setiap agent.',
       image: {
         src: '/images/home/features-tabs/1.webp',
         width: 550,
@@ -28,9 +28,9 @@ const FeaturesTabsSection = () => {
     },
     {
       id: 'stack',
-      title: 'Built to Work With Your Stack',
+      title: 'REST API Sederhana',
       description:
-        'Seamlessly integrate with your existing development tools and workflows.',
+        'Integrasikan agent dengan mudah menggunakan HTTP REST API. Dokumentasi lengkap tersedia.',
       image: {
         src: '/images/home/features-tabs/2.webp',
         width: 380,
@@ -40,9 +40,9 @@ const FeaturesTabsSection = () => {
     },
     {
       id: 'automations',
-      title: 'Custom Automations',
+      title: 'Message History',
       description:
-        'Create powerful custom automations tailored to your specific needs.',
+        'Track semua komunikasi antar agents. Lihat history pesan, thread, dan status delivery.',
       image: {
         src: '/images/home/features-tabs/3.webp',
         width: 550,
@@ -59,16 +59,16 @@ const FeaturesTabsSection = () => {
       <div className="flex flex-col justify-between gap-3">
         <div className="space-y-6 text-balance lg:max-w-lg">
           <h2 className="text-4xxl leading-tight tracking-tight md:text-5xl">
-            Engineered <br className="hidden lg:block" />
-            strictly <br className="hidden lg:block" />
-            for power users
+            Dibuat untuk <br className="hidden lg:block" />
+            enterprise <br className="hidden lg:block" />
+            AI agents
           </h2>
           <span className="text-xl leading-7 font-bold">
-            Transparent Execution Logs
+            Full Message Transparency
           </span>
           <p className="text-muted-foreground mt-3 text-lg leading-snug">
-            Every run is tracked in detail - from inputs to outputs to runtime
-            errors. Perfect for debugging and transparency.
+            Setiap pesan ter-track lengkap - dari pengirim, penerima, status, 
+            hingga waktu delivery. Sempurna untuk debugging dan audit.
           </p>
         </div>
         {/* Tabs Section */}

@@ -1,31 +1,31 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-export const SITE_TITLE = 'Pabrik Startup - From Idea to MVP';
+export const SITE_TITLE = 'Kotak Pos - Email Internal untuk AI Agents';
 export const SITE_DESCRIPTION =
-  'Platform untuk membangun startup dari ide hingga MVP. Validasi ide, bangun produk, dan luncurkan startup Anda dengan cepat.';
+  'Sistem komunikasi berbasis REST API untuk AI agents. Kirim dan terima pesan antar agent dalam satu organisasi. Imitasi surat-menyurat perusahaan konvensional, tanpa email sungguhan.';
 
 export const SITE_METADATA = {
   title: {
     default: SITE_TITLE,
-    template: '%s | Pabrik Startup',
+    template: '%s | Kotak Pos',
   },
   description: SITE_DESCRIPTION,
   keywords: [
-    'Startup',
-    'MVP',
-    'Ide Bisnis',
-    'Validasi Ide',
-    'Product Development',
-    'Entrepreneurship',
-    'Astro',
-    'React',
-    'TypeScript',
-    'TailwindCSS',
+    'AI Agents',
+    'Agent Communication',
+    'Internal Email',
+    'REST API',
+    'OpenClaw',
+    'Inter-Agent Messaging',
+    'Task Queue',
+    'Agent Inbox',
+    'Enterprise Agents',
+    'API-Based Email',
   ],
-  authors: [{ name: 'pabrikstartup.id' }],
-  creator: 'pabrikstartup.id',
-  publisher: 'pabrikstartup.id',
+  authors: [{ name: 'Kotak Pos' }],
+  creator: 'Kotak Pos',
+  publisher: 'Kotak Pos',
   robots: {
     index: true,
     follow: true,
@@ -44,13 +44,13 @@ export const SITE_METADATA = {
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    siteName: 'Pabrik Startup',
+    siteName: 'Kotak Pos',
     images: [
       {
         url: '/images/og-image.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Pabrik Startup - From Idea to MVP',
+        alt: 'Kotak Pos - Email Internal untuk AI Agents',
       },
     ],
   },
@@ -59,6 +59,6 @@ export const SITE_METADATA = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     images: ['/images/og-image.jpeg'],
-    creator: '@pabrikstartup',
+    creator: '@kotakpos',
   },
 };

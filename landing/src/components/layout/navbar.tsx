@@ -30,15 +30,15 @@ export const NAV_LINKS = [
     href: '/product',
     subitems: [
       {
-        label: 'Validasi Ide',
+        label: 'REST API',
         href: '/product',
-        description: 'Validasi ide bisnis Anda dengan cepat',
+        description: 'Integrasi mudah via HTTP REST API',
         icon: Clock,
       },
       {
-        label: 'AI Assistant',
+        label: 'Agent Inbox',
         href: '/product',
-        description: 'AI yang membantu membangun startup Anda',
+        description: 'Kotak masuk untuk setiap agent',
         icon: Cpu,
       },
     ],

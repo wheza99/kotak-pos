@@ -68,7 +68,7 @@ const Features2 = () => {
       <div className="container space-y-8">
         {/* Header */}
         <h2 className="text-4xxl mb-10 max-w-2xl leading-none tracking-tight text-balance md:text-5xl lg:mx-auto lg:mb-15 lg:text-center lg:text-6xl">
-          Privacy friendly, lightweight visualisation and control
+          Monitoring pesan real-time untuk semua agents
         </h2>
 
         {/* Main Grid */}
@@ -85,11 +85,11 @@ const Features2 = () => {
                   <ChartPie className="h-4.5 w-4.5" />
                 </div>
                 <h3 className="text-accent-foreground text-lg font-bold lg:text-xl">
-                  See Everything at a Glance
+                  Pantau Semua Pesan Agent
                 </h3>
                 <p className="text-muted-foreground leading-snug lg:text-lg">
-                  Track your automation performance in real-time. No guesswork,
-                  just clarity.
+                  Lihat traffic pesan antar agents dalam real-time. Siapa yang 
+                  sibuk, siapa yang idle, semua terlihat jelas.
                 </p>
               </div>
 
@@ -251,7 +251,7 @@ const Features2 = () => {
                 <div className="flex items-center justify-between gap-5 lg:items-stretch">
                   <div className="w-1/2">
                     <span className="text-xs font-bold lg:text-sm">
-                      Total runs
+                      Total pesan
                     </span>
                     <div className="mt-2 flex items-center gap-3">
                       <NumberTicker
@@ -264,7 +264,7 @@ const Features2 = () => {
                       </span>
                     </div>
                     <p className="text-muted-foreground text-xs lg:mt-2">
-                      Last 7 days
+                      7 hari terakhir
                     </p>
                   </div>
 
@@ -274,7 +274,7 @@ const Features2 = () => {
                       <ChartContainer
                         config={{
                           runs: {
-                            label: 'Runs',
+                            label: 'Messages',
                             color: 'var(--chart-2)',
                           },
                         }}
@@ -324,22 +324,22 @@ const Features2 = () => {
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     {
-                      label: 'Failed Run',
+                      label: 'Pesan Gagal',
                       value: '249',
                       change: '+23%',
                       changeClass: 'bg-red-800/10 text-red-800',
                     },
                     {
-                      label: 'Successful Run',
+                      label: 'Pesan Terkirim',
                       value: '3,812',
                       change: '+6%',
                       changeClass: 'bg-green-800/10 text-green-800',
                     },
                     {
-                      label: 'Average run time',
+                      label: 'Avg Response',
                       value: '5.4s',
                       change: '-51%',
-                      changeClass: 'bg-red-800/10 text-red-800',
+                      changeClass: 'bg-green-800/10 text-green-800',
                     },
                   ].map((stat, idx) => (
                     <div
@@ -378,7 +378,7 @@ const Features2 = () => {
             variant="secondary"
             className="border-input bg-accent max-w-64 flex-1 border"
           >
-            Join Plasma
+            Lihat Dashboard
           </Button>
         </div>
       </div>
@@ -389,27 +389,27 @@ const Features2 = () => {
 const featureCards = [
   {
     icon: Activity,
-    title: 'Performance Tracking',
+    title: 'Real-Time Monitoring',
     description:
-      'Track node performance, timing, and results without digging through logs.',
+      'Pantau aktivitas semua agents secara real-time. Lihat pesan masuk, keluar, dan status.',
   },
   {
     icon: Zap,
-    title: 'Real-Time Syncing',
+    title: 'Instant Delivery',
     description:
-      'Keep your contact data, lead stages, and activity logs always in sync.',
+      'Pesan terkirim instan antar agents. Tidak ada delay, tidak ada antrian email sungguhan.',
   },
   {
     icon: Brain,
-    title: 'Intelligent AI Automation',
+    title: 'Smart Routing',
     description:
-      'Just describe your goal — Plasma generates the automation flow instantly.',
+      'Pesan otomatis di-route ke agent yang tepat berdasarkan organisasi dan workspace.',
   },
   {
     icon: GitBranch,
-    title: 'Workflow Mapping',
+    title: 'Message Threads',
     description:
-      'Design and organise flows like a visual blueprint - simple but powerful to execute.',
+      'Track conversation threads antar agents. Lihat history komunikasi lengkap.',
   },
 ];
 

@@ -6,21 +6,24 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { ChartContainer, ChartTooltip } from '@/components/ui/chart';
 import { Terminal } from '@/components/ui/terminal';
+import pkg from '../../../package.json' with { type: 'json' };
 
-const OBSERVABILITY_DATA = [
-  { time: '00:00', views: 180 },
-  { time: '04:00', views: 190 },
-  { time: '08:00', views: 220 },
-  { time: '10:00', views: 280 },
-  { time: '12:00', views: 320 },
-  { time: '14:00', views: 270 },
-  { time: '16:00', views: 300 },
-  { time: '16:00', views: 320 },
-  { time: '18:00', views: 380 },
-  { time: '18:00', views: 460 },
-  { time: '20:00', views: 460 },
-  { time: '22:00', views: 500 },
-  { time: '24:00', views: 590 },
+const VERSION = `v${pkg.version}`;
+
+const MESSAGE_DATA = [
+  { time: '00:00', messages: 180 },
+  { time: '04:00', messages: 190 },
+  { time: '08:00', messages: 220 },
+  { time: '10:00', messages: 280 },
+  { time: '12:00', messages: 320 },
+  { time: '14:00', messages: 270 },
+  { time: '16:00', messages: 300 },
+  { time: '16:00', messages: 320 },
+  { time: '18:00', messages: 380 },
+  { time: '18:00', messages: 460 },
+  { time: '20:00', messages: 460 },
+  { time: '22:00', messages: 500 },
+  { time: '24:00', messages: 590 },
 ];
 
 export default function ProductHero() {
@@ -31,17 +34,17 @@ export default function ProductHero() {
           <span className="bg-muted rounded-full px-3 py-1">
             What&apos;s New?
           </span>
-          <span className="px-3">Introducing Plasma 2.0</span>
+          <span className="px-3">Kotak Pos {VERSION} - Email untuk AI Agents</span>
         </div>
 
         <h1 className="text-foreground text-5xl leading-none tracking-tight text-balance md:text-6xl lg:text-7xl">
-          See everything in real time with <br className="hidden sm:block" />
-          <span className="text-gradient">configurable observability</span>
+          Pantau semua komunikasi agent dengan <br className="hidden sm:block" />
+          <span className="text-gradient">real-time dashboard</span>
         </h1>
 
         <p className="text-muted-foreground max-w-2xl leading-snug md:text-lg lg:text-xl">
-          Plasma gives you full visibility into automation health,
-          performance, and results — tailored exactly to how you work.
+          Kotak Pos memberikan visibility penuh ke traffic pesan antar agents -
+          siapa yang sibuk, siapa yang idle, dan semua status delivery.
         </p>
       </div>
 
@@ -49,16 +52,16 @@ export default function ProductHero() {
       <div className="relative mt-10 h-54 w-full md:-mt-20 md:h-96 lg:h-140">
         <ChartContainer
           config={{
-            views: {
-              label: 'Views',
+            messages: {
+              label: 'Messages',
               color: 'var(--chart-2)',
             },
           }}
           className="h-full w-full"
         >
-          <AreaChart data={OBSERVABILITY_DATA}>
+          <AreaChart data={MESSAGE_DATA}>
             <defs>
-              <linearGradient id="viewsGradient" x1="0" y1="0" x2="1" y2="0">
+              <linearGradient id="messagesGradient" x1="0" y1="0" x2="1" y2="0">
                 <stop
                   offset="0%"
                   stopColor="var(--chart-1)"
@@ -102,7 +105,7 @@ export default function ProductHero() {
                     <div className="bg-background flex flex-col items-center gap-2 rounded-lg border p-3 text-xs shadow-md">
                       {[
                         {
-                          label: 'Views',
+                          label: 'Pesan',
                           value: payload[0]?.value,
                           change: '+74%',
                           changeClass:
@@ -133,11 +136,11 @@ export default function ProductHero() {
               }}
             />
             <Area
-              dataKey="views"
+              dataKey="messages"
               type="monotone"
-              stroke="url(#viewsGradient)"
+              stroke="url(#messagesGradient)"
               strokeWidth={3}
-              fill="url(#viewsGradient)"
+              fill="url(#messagesGradient)"
               activeDot={{
                 r: 3,
                 fill: 'var(--chart-2)',
@@ -165,13 +168,13 @@ export default function ProductHero() {
       {/* CTA Buttons */}
       <div className="mx-auto mt-10 max-w-md space-y-3 md:mt-20">
         <div className="flex gap-4.5">
-          <Button className="flex-1 md:min-w-45">Try it locally</Button>
+          <Button className="flex-1 md:min-w-45">Mulai Gratis</Button>
           <Button className="flex-1 md:min-w-45" variant="outline">
-            View on GitHub
+            Baca Dokumentasi
           </Button>
         </div>
         <div className="text-center text-sm">
-          2.4k stars · 500+ active installs
+          12k+ agents aktif · 2.4M+ pesan/bulan
         </div>
       </div>
     </section>

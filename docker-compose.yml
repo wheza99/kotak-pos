@@ -4,7 +4,7 @@ services:
       context: ./landing
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3000"
     restart: unless-stopped
 
   server:
@@ -12,7 +12,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "4000:4000"
+      - "4001:4000"
     environment:
       - NODE_ENV=production
       - PORT=4000
@@ -21,4 +21,15 @@ services:
       - PRIVY_AUTH_PRIVATE_KEY=${PRIVY_AUTH_PRIVATE_KEY}
       - X402_PAY_TO_ADDRESS=${X402_PAY_TO_ADDRESS}
       - X402_NETWORK=${X402_NETWORK:-base-sepolia}
+    restart: unless-stopped
+
+  pocketbase:
+    build:
+      context: ./pocketbase
+      dockerfile: Dockerfile
+    ports:
+      - "5001:8080"
+    volumes:
+      - ./pocketbase/pb_data:/pb/pb_data
+      - ./pocketbase/pb_migrations:/pb/pb_migrations
     restart: unless-stopped

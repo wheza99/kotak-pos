@@ -27,10 +27,10 @@ export default function Logo({
     >
       <img
         src="/logo.png"
-        alt="Pabrik Startup"
+        alt="Kotak Pos"
         className={cn('w-7 h-7 object-contain rounded-md', iconClassName)}
       />
-      <span className={cn('', wordmarkClassName)}>Pabrik Startup</span>
+      <span className={cn('', wordmarkClassName)}>Kotak Pos</span>
     </Element>
   );
 }

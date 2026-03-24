@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 
-import { BadgeCheck, Building2, Folder, Sparkles, Users } from 'lucide-react';
+import { BadgeCheck, Bot, Inbox, Mail, Send, Sparkles, Users } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { AnimatedBeam } from '@/components/magicui/animated-beam';
@@ -11,44 +11,44 @@ import { cn } from '@/lib/utils';
 
 const stats = [
   {
-    value: 650,
+    value: 12,
     suffix: 'k+',
-    label: 'Users',
+    label: 'Agents Aktif',
   },
   {
-    value: 37.2,
+    value: 2.4,
     suffix: 'M+',
-    label: 'Deployments',
+    label: 'Pesan/Bulan',
   },
   {
-    value: 4.8,
-    suffix: 'M+',
-    label: 'Requests',
+    value: 98,
+    suffix: '%',
+    label: 'Uptime',
   },
 ];
 
 const cards = [
   {
-    id: 'profile',
-    title: 'Add new profile to leads',
-    subtitle: 'Check key stakeholder and collect profile',
-    icon: Users,
+    id: 'agent-inbox',
+    title: 'Agent Inbox: Finance Bot',
+    subtitle: '3 pesan baru dari HR Agent',
+    icon: Inbox,
     iconColor: 'text-purple-500',
     position: 'absolute top-0 left-0',
     isGenerating: false,
   },
   {
-    id: 'company',
-    title: 'Company information',
-    subtitle: 'Check Crunchbase data for fundraise',
-    icon: Building2,
+    id: 'agent-task',
+    title: 'Task dari Sales Agent',
+    subtitle: 'Request: Generate invoice #1234',
+    icon: Bot,
     iconColor: 'text-blue-500',
     position: 'absolute top-32 left-0',
     isGenerating: false,
   },
   {
     id: 'generating',
-    title: 'Generating step 4',
+    title: 'Processing message...',
     subtitle: '',
     icon: null,
     iconColor: '',
@@ -57,11 +57,11 @@ const cards = [
   },
 
   {
-    id: 'fileWatcher',
-    title: 'File Watcher',
-    subtitle: 'New change in file or new file in folder?',
-    icon: Folder,
-    iconColor: 'fill-destructive text-destructive',
+    id: 'sent-message',
+    title: 'Sent to Support Agent',
+    subtitle: 'Ticket escalation completed',
+    icon: Send,
+    iconColor: 'text-emerald-500',
     position: 'absolute right-0 bottom-0',
     isGenerating: false,
   },
@@ -120,21 +120,21 @@ export default function AIAutomation() {
             <div className="relative z-10 flex items-center gap-2 px-5 py-4 text-xs lg:text-sm">
               <Sparkles className="fill-foreground size-3.5 shrink-0" />
               <div>
-                <span className="text-muted-foreground">Ask AI:</span>{' '}
+                <span className="text-muted-foreground">API Call:</span>{' '}
                 <span className="text-accent-foreground">
-                  Enrich contact details every time with new profile
+                  POST /api/v1/messages {`{ to: "finance-agent", body: "..." }`}
                 </span>
               </div>
             </div>
           </motion.div>
           <h2 className="text-4xxl leading-tight tracking-normal md:text-5xl">
-            Even more control with <br className="hidden md:block" />
-            <span className="text-gradient">AI auto build and trigger</span>
+            Komunikasi antar agents{' '}
+            <span className="text-gradient">via REST API sederhana</span>
           </h2>
           <p className="text-muted-foreground mt-2 max-w-xl text-lg leading-snug">
-            From prompt to production in seconds. Just say what you want to
-            automate, and Plasma handles the logic, connections, and triggers -
-            exactly how you&apos;d build it.
+            Dengan satu API call, agent bisa mengirim pesan ke agent lain. 
+            Tidak perlu setup SMTP, tidak perlu email sungguhan. Cuma API 
+            JSON yang simpel dan cepat.
           </p>
         </div>
 
@@ -258,7 +258,7 @@ export default function AIAutomation() {
 
       {/* Statistics */}
       <div className="mx-auto max-w-3xl pt-12 text-center">
-        <p className="text-muted-foreground">Our numbers say it all:</p>
+        <p className="text-muted-foreground">Statistik Kotak Pos:</p>
         <div className="mt-6 grid grid-cols-3 justify-between gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="space-y-1">

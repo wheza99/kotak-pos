@@ -62,32 +62,32 @@ const PLANS: Plan[] = [
     type: 'basic',
     icon: Rocket,
     price: {
-      monthly: 14,
-      yearly: 140,
+      monthly: 0,
+      yearly: 0,
     },
     button: {
-      text: 'Button',
+      text: 'Mulai Gratis',
       variant: 'default',
       href: '/signup',
     },
     features: {
       core: [
-        { name: 'Flow Builder', value: true },
-        { name: 'Local script support', value: false },
-        { name: 'Scheduled Triggers', value: false },
-        { name: 'Flow export/import', value: 'Limited' },
-        { name: 'Observability dashboard', value: false },
-        { name: 'Offline Mode', value: false },
-        { name: 'Version history', value: 'Limited' },
+        { name: 'Jumlah Agents', value: '3 agents' },
+        { name: 'Pesan per bulan', value: '1,000' },
+        { name: 'REST API Access', value: true },
+        { name: 'Inbox per Agent', value: true },
+        { name: 'Dashboard Monitoring', value: false },
+        { name: 'Webhook Support', value: false },
+        { name: 'Message History', value: '7 hari' },
       ],
       automation: [
-        { name: 'Basic AI Prompts', value: true },
-        { name: 'Auto Node generation', value: 'Limited' },
-        { name: 'Real time logs', value: false },
-        { name: 'Smart flow suggestions', value: false },
-        { name: 'Historical logs', value: 'Limited\n1 month only' },
-        { name: 'Multi-Step Logic blocks', value: false },
-        { name: 'Database', value: false },
+        { name: 'API Rate Limit', value: '100/min' },
+        { name: 'Organisasi/Workspace', value: '1' },
+        { name: 'Priority Queue', value: false },
+        { name: 'Message Threads', value: false },
+        { name: 'Delivery Tracking', value: 'Basic' },
+        { name: 'Custom Agent Metadata', value: false },
+        { name: 'SSL/TLS', value: true },
       ],
     },
   },
@@ -96,66 +96,66 @@ const PLANS: Plan[] = [
     type: 'business',
     icon: Briefcase,
     price: {
-      monthly: 49,
-      yearly: 490,
+      monthly: 29,
+      yearly: 290,
     },
     button: {
-      text: 'Button',
+      text: 'Pilih Pro',
       variant: 'default',
       href: '/signup',
     },
     features: {
       core: [
-        { name: 'Flow Builder', value: true },
-        { name: 'Local script support', value: false },
-        { name: 'Scheduled Triggers', value: true },
-        { name: 'Flow export/import', value: 'Limited\nXML supported' },
-        { name: 'Observability dashboard', value: true },
-        { name: 'Offline Mode', value: false },
-        { name: 'Version history', value: true },
+        { name: 'Jumlah Agents', value: '25 agents' },
+        { name: 'Pesan per bulan', value: '50,000' },
+        { name: 'REST API Access', value: true },
+        { name: 'Inbox per Agent', value: true },
+        { name: 'Dashboard Monitoring', value: true },
+        { name: 'Webhook Support', value: true },
+        { name: 'Message History', value: '30 hari' },
       ],
       automation: [
-        { name: 'Basic AI Prompts', value: true },
-        { name: 'Auto Node generation', value: 'Limited' },
-        { name: 'Real time logs', value: true },
-        { name: 'Smart flow suggestions', value: false },
-        { name: 'Historical logs', value: 'Limited\n3 months only' },
-        { name: 'Multi-Step Logic blocks', value: 'Limited\n32 LOGICs' },
-        { name: 'Database', value: false },
+        { name: 'API Rate Limit', value: '1,000/min' },
+        { name: 'Organisasi/Workspace', value: '5' },
+        { name: 'Priority Queue', value: true },
+        { name: 'Message Threads', value: true },
+        { name: 'Delivery Tracking', value: 'Full' },
+        { name: 'Custom Agent Metadata', value: true },
+        { name: 'SSL/TLS', value: true },
       ],
     },
   },
   {
-    name: 'Team',
+    name: 'Enterprise',
     type: 'enterprise',
     icon: Building,
     price: {
-      monthly: 29,
-      yearly: 290,
+      monthly: 99,
+      yearly: 990,
     },
     button: {
-      text: 'Button',
+      text: 'Hubungi Sales',
       variant: 'default',
       href: '/contact',
     },
     features: {
       core: [
-        { name: 'Flow Builder', value: true },
-        { name: 'Local script support', value: true },
-        { name: 'Scheduled Triggers', value: true },
-        { name: 'Flow export/import', value: 'Unlimited\nAll file types' },
-        { name: 'Observability dashboard', value: true },
-        { name: 'Offline Mode', value: true },
-        { name: 'Version history', value: true },
+        { name: 'Jumlah Agents', value: 'Unlimited' },
+        { name: 'Pesan per bulan', value: 'Unlimited' },
+        { name: 'REST API Access', value: true },
+        { name: 'Inbox per Agent', value: true },
+        { name: 'Dashboard Monitoring', value: true },
+        { name: 'Webhook Support', value: true },
+        { name: 'Message History', value: '90 hari' },
       ],
       automation: [
-        { name: 'Basic AI Prompts', value: true },
-        { name: 'Auto Node generation', value: true },
-        { name: 'Real time logs', value: true },
-        { name: 'Smart flow suggestions', value: true },
-        { name: 'Historical logs', value: 'Full Log\n6 months only' },
-        { name: 'Multi-Step Logic blocks', value: 'Unlimited' },
-        { name: 'Database', value: true },
+        { name: 'API Rate Limit', value: 'Unlimited' },
+        { name: 'Organisasi/Workspace', value: 'Unlimited' },
+        { name: 'Priority Queue', value: true },
+        { name: 'Message Threads', value: true },
+        { name: 'Delivery Tracking', value: 'Full + Analytics' },
+        { name: 'Custom Agent Metadata', value: true },
+        { name: 'Dedicated Support', value: true },
       ],
     },
   },
@@ -163,11 +163,11 @@ const PLANS: Plan[] = [
 
 const CATEGORY_CONFIG = {
   core: {
-    name: 'Core Features',
+    name: 'Fitur Utama',
     icon: Activity,
   },
   automation: {
-    name: 'Automation and AI',
+    name: 'API & Integrasi',
     icon: Brain,
   },
 };
@@ -179,14 +179,13 @@ const PricingSection = () => {
     <section className="section-padding relative container space-y-15 md:space-y-20 lg:space-y-30">
       <div className="mx-auto max-w-4xl space-y-4 text-balance sm:text-center">
         <h1 className="md:text-6xxl text-5xl leading-none tracking-tight text-balance">
-          Pricing designed to <br className="hidden sm:block" />
-          <span className="text-gradient">scale with you!</span>
+          Harga yang bisa <br className="hidden sm:block" />
+          <span className="text-gradient">scale sesuai kebutuhan!</span>
         </h1>
 
         <p className="text-muted-foreground leading-snug md:text-lg lg:text-xl">
-          Plasma is an open-source desktop app that lets you build and run
-          automations directly on your machine. No fluff just fast, visual
-          workflows powered by you.
+          Mulai gratis dengan 3 agents dan scale sesuai kebutuhan organisasi Anda.
+          Tidak ada biaya tersembunyi, tidak perlu kartu kredit untuk memulai.
         </p>
       </div>
 
@@ -254,20 +253,22 @@ const PricingCard = ({
             </CardTitle>
             <CardDescription className="text-base leading-snug md:text-lg lg:text-xl">
               {plan.name === 'Free' &&
-                'Perfect for passion projects & simple products'}
-              {plan.name === 'Pro' && 'Advanced tools for growing businesses'}
-              {plan.name === 'Team' &&
-                'Collaborative features for teams and large organisations'}
+                'Untuk testing dan project kecil dengan 3 agents'}
+              {plan.name === 'Pro' && 'Untuk tim dengan multiple agents dan workflow kompleks'}
+              {plan.name === 'Enterprise' &&
+                'Untuk organisasi besar dengan unlimited agents dan support prioritas'}
             </CardDescription>
           </CardHeader>
 
           <CardContent className="flex flex-col items-baseline gap-1 font-medium tracking-tight md:flex-row">
             <span className="font-azeret-mono text-4xxl leading-none md:text-5xl lg:text-6xl">
-              ${plan.price.monthly}
+              {plan.price.monthly === 0 ? 'Gratis' : `$${plan.price.monthly}`}
             </span>
-            <span className="text-muted-foreground text-lg md:text-xl">
-              / month
-            </span>
+            {plan.price.monthly > 0 && (
+              <span className="text-muted-foreground text-lg md:text-xl">
+                / bulan
+              </span>
+            )}
           </CardContent>
         </div>
         <CardFooter className="">
