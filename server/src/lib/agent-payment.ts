@@ -1,8 +1,12 @@
 import { PrivyClient } from "@privy-io/node";
 import { createX402Client } from "@privy-io/node/x402";
 import { wrapFetchWithPayment } from "@x402/fetch";
+import { config, BASE_RPC_URLS, USDC_CONTRACTS } from "../config/index.js";
 
-// Wallet chain type - must match Privy's supported chains
+// ============================================
+// TYPES
+// ============================================
+
 type WalletChainType =
   | "ethereum"
   | "solana"
@@ -18,30 +22,25 @@ type WalletChainType =
   | "starknet"
   | "spark";
 
-// Privy configuration
-const PRIVY_APP_ID = process.env.PRIVY_APP_ID || "";
-const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET || "";
-const PRIVY_AUTH_PRIVATE_KEY = process.env.PRIVY_AUTH_PRIVATE_KEY || "";
-const PRIVY_AUTH_ID = process.env.PRIVY_AUTH_ID || "";
+// ============================================
+// PRIVY CLIENT
+// ============================================
 
-// Initialize Privy client for server-side operations
 let privyClient: PrivyClient | null = null;
-let agentWalletId: string | null = null;
-let agentWalletAddress: string | null = null;
 
 /**
  * Get or create Privy client
  */
 export function getPrivyClient(): PrivyClient {
   if (!privyClient) {
-    if (!PRIVY_APP_ID || !PRIVY_APP_SECRET) {
+    if (!config.privy.appId || !config.privy.appSecret) {
       throw new Error(
         "PRIVY_APP_ID and PRIVY_APP_SECRET are required for agent payments",
       );
     }
     privyClient = new PrivyClient({
-      appId: PRIVY_APP_ID,
-      appSecret: PRIVY_APP_SECRET,
+      appId: config.privy.appId,
+      appSecret: config.privy.appSecret,
     });
   }
   return privyClient;
@@ -51,13 +50,13 @@ export function getPrivyClient(): PrivyClient {
  * Get authorization context for wallet operations
  */
 function getAuthorizationContext() {
-  if (!PRIVY_AUTH_PRIVATE_KEY) {
+  if (!config.privy.authPrivateKey) {
     console.warn("⚠️ PRIVY_AUTH_PRIVATE_KEY not set, payment signing may fail");
     return undefined;
   }
 
   // Remove 'wallet-auth:' prefix if present
-  const privateKey = PRIVY_AUTH_PRIVATE_KEY.replace(/^wallet-auth:/, "");
+  const privateKey = config.privy.authPrivateKey.replace(/^wallet-auth:/, "");
 
   console.log(
     "🔑 Using authorization private key (length):",
@@ -68,6 +67,10 @@ function getAuthorizationContext() {
     authorization_private_keys: [privateKey],
   };
 }
+
+// ============================================
+// WALLET OPERATIONS
+// ============================================
 
 /**
  * Create a new wallet for a client/agent
@@ -86,8 +89,8 @@ export async function createClientWallet(): Promise<{
   };
 
   // Use server's key quorum as owner so we can sign on behalf of this wallet
-  if (PRIVY_AUTH_ID) {
-    walletParams.owner_id = PRIVY_AUTH_ID;
+  if (config.privy.authId) {
+    walletParams.owner_id = config.privy.authId;
   }
 
   const wallet = await client.wallets().create(walletParams);
@@ -114,10 +117,12 @@ export async function getWalletById(
   return { id: wallet.id, address: wallet.address };
 }
 
+// ============================================
+// X402 PAYMENT CLIENT
+// ============================================
+
 /**
  * Create x402 payment client for a specific wallet with authorization
- * @param walletId - The wallet ID to use for payments
- * @param walletAddress - The wallet address
  */
 export async function getX402Client(walletId: string, walletAddress: string) {
   const client = getPrivyClient();
@@ -139,8 +144,6 @@ export async function getX402Client(walletId: string, walletAddress: string) {
 
 /**
  * Fetch wrapper that automatically handles x402 payments for a specific wallet
- * @param walletId - The wallet ID to use for payments
- * @param walletAddress - The wallet address
  */
 export async function createPaidFetch(walletId: string, walletAddress: string) {
   const x402Client = await getX402Client(walletId, walletAddress);
@@ -149,10 +152,6 @@ export async function createPaidFetch(walletId: string, walletAddress: string) {
 
 /**
  * Payment service - fetch with automatic x402 payment handling
- * @param url - The URL to fetch
- * @param walletId - The wallet ID to use for payment (required!)
- * @param walletAddress - The wallet address
- * @param options - Fetch options
  */
 export async function paidFetch<T = unknown>(
   url: string,
@@ -182,17 +181,9 @@ export async function paidFetch<T = unknown>(
   }
 }
 
-// RPC endpoints for Base network
-const BASE_RPC_URLS = {
-  base: "https://mainnet.base.org",
-  "base-sepolia": "https://sepolia.base.org",
-};
-
-// USDC contract addresses on Base
-const USDC_CONTRACTS = {
-  base: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-  "base-sepolia": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
-};
+// ============================================
+// BALANCE UTILITIES
+// ============================================
 
 // ERC20 balanceOf function selector
 const BALANCE_OF_SELECTOR = "0x70a08231";
@@ -210,8 +201,8 @@ function hexToDecimal(hex: string): string {
  */
 function weiToEth(wei: string): string {
   const weiBigInt = BigInt(wei);
-  const ethBigInt = weiBigInt / BigInt(10 ** 12); // Convert to microETH first
-  const ethNumber = Number(ethBigInt) / 10 ** 6; // Then to ETH
+  const ethBigInt = weiBigInt / BigInt(10 ** 12);
+  const ethNumber = Number(ethBigInt) / 10 ** 6;
   return ethNumber.toFixed(6);
 }
 
@@ -308,10 +299,7 @@ export async function getWalletBalance(walletAddress: string): Promise<{
   rawUsdc: string;
   rawEth: string;
 }> {
-  const network = (process.env.X402_NETWORK || "base") as
-    | "base"
-    | "base-sepolia";
-
+  const { network } = config.x402;
   const rpcUrl = BASE_RPC_URLS[network];
   const usdcContract = USDC_CONTRACTS[network];
 
@@ -360,7 +348,7 @@ export async function getWalletFundingInfo(
   instructions: string;
   faucetUrl?: string;
 }> {
-  const network = process.env.X402_NETWORK || "base-sepolia";
+  const { network } = config.x402;
   const isTestnet = network === "base-sepolia";
 
   return {
