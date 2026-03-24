@@ -7,16 +7,6 @@ const mailRoutes = new Hono();
 // TYPES
 // ============================================
 
-interface MailRecord {
-  id: string;
-  from_id: string;
-  to_id: string;
-  subject: string;
-  body: string;
-  created: string;
-  updated: string;
-}
-
 interface CreateMailBody {
   from_id: string;
   to_id: string;
@@ -58,13 +48,15 @@ async function getWalletAgentIds(
 
 // ============================================
 // GET /api/mail - List mails
-// Query params: wallet_id, type (inbox|sent), page, perPage
+// Query params: wallet_id, from_id, to_id, page, perPage
+// Filter by from_id (sent) or to_id (inbox)
 // ============================================
 
 mailRoutes.get("/api/mail", async (c) => {
   try {
     const walletId = c.req.query("wallet_id");
-    const type = c.req.query("type") || "inbox"; // inbox | sent | all
+    const fromId = c.req.query("from_id");
+    const toId = c.req.query("to_id");
     const page = parseInt(c.req.query("page") || "1");
     const perPage = parseInt(c.req.query("perPage") || "50");
 
@@ -80,48 +72,48 @@ mailRoutes.get("/api/mail", async (c) => {
 
     const pb = await getPocketBase();
 
-    // Get all agent IDs for this wallet
+    // Get all agent IDs for this wallet (for permission check)
     const agentIds = await getWalletAgentIds(pb, walletId);
 
-    if (agentIds.length === 0) {
-      return c.json({
-        success: true,
-        data: {
-          items: [],
-          page,
-          perPage,
-          totalItems: 0,
-          totalPages: 0,
-        },
-      });
-    }
-
-    // Build filter based on type
+    // Build filter
     let filter = "";
-    const agentFilter = agentIds.map((id) => `to_id="${id}"`).join(" || ");
-    const fromFilter = agentIds.map((id) => `from_id="${id}"`).join(" || ");
-
-    if (type === "inbox") {
-      filter = `(${agentFilter})`;
-    } else if (type === "sent") {
-      filter = `(${fromFilter})`;
+    if (fromId && toId) {
+      filter = `from_id="${fromId}" && to_id="${toId}"`;
+    } else if (fromId) {
+      filter = `from_id="${fromId}"`;
+    } else if (toId) {
+      filter = `to_id="${toId}"`;
     } else {
-      filter = `(${agentFilter}) || (${fromFilter})`;
+      // No filter specified, return all mails related to wallet's agents
+      if (agentIds.length === 0) {
+        return c.json({
+          success: true,
+          data: {
+            items: [],
+            page,
+            perPage,
+            totalItems: 0,
+            totalPages: 0,
+          },
+        });
+      }
+      const toFilter = agentIds.map((id) => `to_id="${id}"`).join(" || ");
+      const fromFilter = agentIds.map((id) => `from_id="${id}"`).join(" || ");
+      filter = `(${toFilter}) || (${fromFilter})`;
     }
 
     const resultList = await pb.collection("mail").getList(page, perPage, {
       filter,
       sort: "-created",
-      expand: "from_id,to_id",
     });
 
-    // Clean response
+    // Clean response (no body in list)
     const items = resultList.items.map((item: Record<string, unknown>) => ({
       id: item.id,
       from_id: item.from_id,
       to_id: item.to_id,
       subject: item.subject,
-      body: item.body,
+      status: item.status,
       created: item.created,
       updated: item.updated,
     }));
@@ -154,6 +146,7 @@ mailRoutes.get("/api/mail", async (c) => {
 // POST /api/mail - Create new mail
 // Body: { from_id, to_id, subject, body }
 // wallet_id auto-injected by /api/pay
+// Status: "sent"
 // ============================================
 
 mailRoutes.post("/api/mail", async (c) => {
@@ -219,7 +212,8 @@ mailRoutes.post("/api/mail", async (c) => {
       return c.json(
         {
           success: false,
-          error: "Permission denied: from_id agent does not belong to your wallet",
+          error:
+            "Permission denied: from_id agent does not belong to your wallet",
         },
         403,
       );
@@ -238,12 +232,13 @@ mailRoutes.post("/api/mail", async (c) => {
       );
     }
 
-    // Create mail
+    // Create mail with status "sent"
     const record = await pb.collection("mail").create({
       from_id,
       to_id,
       subject,
       body: mailBody,
+      status: "sent",
     });
 
     console.log(`✅ Mail created: ${record.id} from ${from_id} to ${to_id}`);
@@ -256,6 +251,7 @@ mailRoutes.post("/api/mail", async (c) => {
         to_id: record.to_id,
         subject: record.subject,
         body: record.body,
+        status: record.status,
         created: record.created,
         updated: record.updated,
       },
@@ -276,6 +272,7 @@ mailRoutes.post("/api/mail", async (c) => {
 
 // ============================================
 // GET /api/mail/:id - Get single mail
+// Updates status to "read"
 // ============================================
 
 mailRoutes.get("/api/mail/:id", async (c) => {
@@ -305,9 +302,7 @@ mailRoutes.get("/api/mail/:id", async (c) => {
 
     const pb = await getPocketBase();
 
-    const record = await pb.collection("mail").getOne(id, {
-      expand: "from_id,to_id",
-    });
+    const record = await pb.collection("mail").getOne(id);
 
     // Verify permission: wallet must own either from_id or to_id agent
     const agentIds = await getWalletAgentIds(pb, walletId);
@@ -325,16 +320,22 @@ mailRoutes.get("/api/mail/:id", async (c) => {
       );
     }
 
+    // Update status to "read"
+    const updatedRecord = await pb.collection("mail").update(id, {
+      status: "read",
+    });
+
     return c.json({
       success: true,
       data: {
-        id: record.id,
-        from_id: record.from_id,
-        to_id: record.to_id,
-        subject: record.subject,
-        body: record.body,
-        created: record.created,
-        updated: record.updated,
+        id: updatedRecord.id,
+        from_id: updatedRecord.from_id,
+        to_id: updatedRecord.to_id,
+        subject: updatedRecord.subject,
+        body: updatedRecord.body,
+        status: updatedRecord.status,
+        created: updatedRecord.created,
+        updated: updatedRecord.updated,
       },
     });
   } catch (error) {

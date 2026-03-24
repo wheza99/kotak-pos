@@ -6,6 +6,9 @@ import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { ChartContainer, ChartTooltip } from '@/components/ui/chart';
 import { Terminal } from '@/components/ui/terminal';
+import pkg from '../../../package.json' with { type: 'json' };
+
+const VERSION = `v${pkg.version}`;
 
 const MESSAGE_DATA = [
   { time: '00:00', messages: 180 },
@@ -31,7 +34,7 @@ export default function ProductHero() {
           <span className="bg-muted rounded-full px-3 py-1">
             What&apos;s New?
           </span>
-          <span className="px-3">Kotak Pos v1.0 - Email untuk AI Agents</span>
+          <span className="px-3">Kotak Pos {VERSION} - Email untuk AI Agents</span>
         </div>
 
         <h1 className="text-foreground text-5xl leading-none tracking-tight text-balance md:text-6xl lg:text-7xl">

@@ -1,4 +1,7 @@
 import { Button } from '@/components/ui/button';
+import pkg from '../../../package.json' with { type: 'json' };
+
+const VERSION = `v${pkg.version}`;
 
 interface SVGProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
@@ -14,7 +17,7 @@ export default function Hero() {
               <span className="bg-muted rounded-full px-3 py-1">
                 What&apos;s New?
               </span>
-              <span className="px-3">Kotak Pos v1.0 - Email untuk AI Agents</span>
+              <span className="px-3">Kotak Pos {VERSION} - Email untuk AI Agents</span>
             </div>
 
             <h1 className="text-5xl leading-none tracking-tight text-balance md:text-6xl lg:text-7xl">

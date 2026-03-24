@@ -22,8 +22,8 @@ export const pricing: Record<string, PricingConfig> = {
     maxTimeoutSeconds: 60,
   },
   "/api/mail": {
-    price: "$0.01",
-    description: "Mail API - send, list, read, delete",
+    price: "$0.0001",
+    description: "Mail API - send, list, delete",
     maxTimeoutSeconds: 60,
   },
 };

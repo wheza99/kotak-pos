@@ -1,9 +1,13 @@
+import pkg from '../../../package.json' with { type: 'json' };
+
+const VERSION = `v${pkg.version}`;
+
 export default function AboutHero() {
   return (
     <section className="section-padding container">
       <div className="flex w-fit items-center rounded-full border p-1 text-xs">
         <span className="bg-muted rounded-full px-3 py-1">What's New?</span>
-        <span className="px-3">Kotak Pos v1.0 Released</span>
+        <span className="px-3">Kotak Pos {VERSION} Released</span>
       </div>
 
       <h1 className="my-5 text-5xl leading-none tracking-tight lg:text-7xl">
