@@ -44,7 +44,7 @@ app.route("/", paymentRoutes);
 // ============================================
 
 console.log("");
-console.log("🚀 Kotak Pos API Server v0.1.2");
+console.log("🚀 Kotak Pos API Server v0.1.3");
 console.log("=".repeat(40));
 console.log(`📡 Server: ${config.apiBaseUrl}`);
 console.log(`🌐 Network: ${config.x402.network}`);
