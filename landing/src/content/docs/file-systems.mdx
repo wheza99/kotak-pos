@@ -1,0 +1,239 @@
+---
+title: File Systems
+description: Understand how to manage and organize files efficiently within the Plasma ecosystem.
+---
+
+## Project Structure
+
+Plasma follows a well-organized file structure that promotes maintainability and scalability:
+
+```
+plasma-project/
+├── src/
+│   ├── components/
+│   │   ├── Button.tsx
+│   │   ├── Modal.tsx
+│   │   └── index.ts
+│   ├── pages/
+│   │   ├── home.tsx
+│   │   └── about.tsx
+│   ├── utils/
+│   │   ├── helpers.ts
+│   │   └── api.ts
+│   └── styles/
+│       ├── globals.css
+│       └── components.css
+├── public/
+│   ├── favicon.ico
+│   └── logo.svg
+├── docs/
+│   ├── README.md
+│   └── api.md
+├── plasma.config.js
+├── package.json
+└── tsconfig.json
+```
+
+## File Management
+
+### Creating Files Programmatically
+
+Use Plasma's file API to create and manage files:
+
+```typescript title="file-manager.ts"
+import { fileSystem } from 'plasma';
+
+// Create a new file
+await fileSystem.create('src/components/NewComponent.tsx', {
+  template: 'react-component',
+  props: { name: 'NewComponent' },
+});
+
+// Create directory structure
+await fileSystem.createDirectory('src/features/auth');
+```
+
+### File Watching
+
+Monitor file changes in real-time:
+
+```typescript
+import { fileWatcher } from 'plasma';
+
+fileWatcher.watch('src/**/*.{ts,tsx}', {
+  onChange: (filePath) => {
+    console.log(`File changed: ${filePath}`);
+    // Trigger rebuild or hot reload
+  },
+  onAdd: (filePath) => {
+    console.log(`File added: ${filePath}`);
+  },
+});
+```
+
+### File Operations
+
+Common file operations:
+
+```typescript
+// Read file content
+const content = await fileSystem.read('src/config.ts');
+
+// Write file content
+await fileSystem.write('dist/bundle.js', compiledCode);
+
+// Copy files
+await fileSystem.copy('src/assets', 'dist/assets');
+
+// Delete files
+await fileSystem.delete('temp/cache.json');
+```
+
+## Configuration Files
+
+### 1. Main Configuration
+
+The `plasma.config.js` file is the heart of your project configuration:
+
+```javascript title="plasma.config.js"
+export default {
+  // File system settings
+  fileSystem: {
+    watchPatterns: ['src/**/*'],
+    ignorePatterns: ['node_modules/**', 'dist/**'],
+    outputDir: 'dist',
+  },
+
+  // Build settings
+  build: {
+    target: 'es2020',
+    format: 'esm',
+    sourcemap: true,
+  },
+};
+```
+
+### 2. TypeScript Configuration
+
+Configure TypeScript for optimal development:
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### 3. Package Configuration
+
+Set up your package.json with Plasma scripts:
+
+```json title="package.json"
+{
+  "scripts": {
+    "dev": "plasma dev",
+    "build": "plasma build",
+    "preview": "plasma preview",
+    "lint": "plasma lint"
+  }
+}
+```
+
+## File Templates
+
+Plasma supports file templates for consistent code generation:
+
+### Component Template
+
+```tsx title="templates/component.tsx"
+import React from 'react';
+
+interface {{name}}Props {
+// Define your props here
+}
+
+export const {{name}}: React.FC<{{name}}Props> = (props) => {
+  return (
+    <div className="{{kebabCase name}}">
+      {/* Component content */}
+    </div>
+  );
+};
+
+export default {{name}};
+```
+
+### Page Template
+
+```tsx title="templates/page.tsx"
+import React from 'react';
+import { Metadata } from 'plasma';
+
+export const metadata: Metadata = {
+  title: '{{title}}',
+  description: '{{description}}'
+};
+
+export default function {{name}}Page() {
+  return (
+    <div className="page-{{kebabCase name}}">
+      <h1>{{title}}</h1>
+      {/* Page content */}
+    </div>
+  );
+}
+```
+
+### Hook Template
+
+```tsx title="templates/hook.ts"
+import { useState, useEffect } from 'react';
+
+export function use{{name}}() {
+  const [state, setState] = useState(null);
+
+useEffect(() => {
+// Hook logic
+}, []);
+
+return {
+state,
+setState
+};
+}
+```
+
+## File System API
+
+| Method | Type | Description |
+|--------|------|-------------|
+| create | (path: string, options?: CreateOptions) => Promise\<void\> | Create a new file with optional template |
+| read | (path: string) => Promise\<string\> | Read file content as string |
+| write | (path: string, content: string) => Promise\<void\> | Write content to file |
+| delete | (path: string) => Promise\<void\> | Delete a file or directory |
+| exists | (path: string) => Promise\<boolean\> | Check if file exists |
+
+## Best Practices
+
+> **Important**: Always use absolute paths or configure path aliases for better maintainability.
+
+- Use descriptive file and folder names
+- Group related files in logical directories
+- Keep configuration files in the project root
+- Use templates for consistent file structure
+- Implement proper file watching for development
+
+<span class="docs-badge">File System Ready</span>

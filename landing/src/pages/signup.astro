@@ -1,0 +1,14 @@
+---
+import AuthLayout from '@/components/sections/auth-layout';
+import SignUpSection from '@/components/sections/signup-section';
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+---
+
+<DefaultLayout
+  title="Sign Up - Plasma"
+  description="Create your Plasma account"
+>
+  <AuthLayout>
+    <SignUpSection client:load />
+  </AuthLayout>
+</DefaultLayout>

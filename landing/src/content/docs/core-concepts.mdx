@@ -1,0 +1,82 @@
+---
+title: Core Concepts
+description: Learn the fundamental concepts and architecture behind Plasma to build better applications.
+---
+
+## Architecture Overview
+
+Plasma is built on a modular architecture that allows for flexible and scalable applications.
+
+### Key Components
+
+<div class="docs-card-grid">
+  <div class="docs-card">
+    <div class="docs-card-title">Engine Core</div>
+    <div class="docs-card-description">
+      The main processing engine that handles all business logic and data flow.
+    </div>
+  </div>
+
+  <div class="docs-card">
+    <div class="docs-card-title">AI Module</div>
+    <div class="docs-card-description">
+      Advanced AI capabilities for intelligent automation and decision-making.
+    </div>
+  </div>
+
+  <div class="docs-card">
+    <div class="docs-card-title">File System</div>
+    <div class="docs-card-description">
+      Efficient file management and organization with built-in security.
+    </div>
+  </div>
+
+  <div class="docs-card">
+    <div class="docs-card-title">CRM Integration</div>
+    <div class="docs-card-description">
+      Seamless customer relationship management with CSV import/export.
+    </div>
+  </div>
+</div>
+
+## Data Flow
+
+The data flow in Plasma follows a predictable pattern:
+
+1. **Input Layer** - Receives data from various sources
+2. **Processing Layer** - Applies business logic and transformations
+3. **AI Layer** - Enhances data with intelligent insights
+4. **Output Layer** - Delivers results to the appropriate destination
+
+## State Management
+
+Plasma uses a centralized state management system that ensures:
+
+- **Consistency** - All components have access to the same data
+- **Predictability** - State changes follow a clear pattern
+- **Debuggability** - Easy to track and debug state changes
+
+> **Important**: Always use the provided state management utilities to ensure consistency across your application.
+
+## Event System
+
+The event system allows different parts of your application to communicate:
+
+```javascript
+// Listen for events
+plasma.on('data:processed', (data) => {
+  console.log('Data processing complete:', data);
+});
+
+// Emit events
+plasma.emit('user:action', { action: 'click', target: 'button' });
+```
+
+## Best Practices
+
+- Keep your modules small and focused
+- Use the event system for loose coupling
+- Leverage AI capabilities for enhanced user experience
+- Follow the established patterns for consistency
+
+<span class="docs-badge">Concept Complete</span>

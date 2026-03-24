@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000">
+  <defs>
+    <clipPath id="clip">
+      <rect width="1000" height="1000" rx="200" ry="200"/>
+    </clipPath>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9A5CD0"/>
+      <stop offset="100%" style="stop-color:#7B2CBF"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1000" height="1000" fill="url(#grad)"/>
+    <text x="500" y="680" font-family="Arial, sans-serif" font-size="600" font-weight="bold" fill="white" text-anchor="middle">P</text>
+  </g>
+</svg>

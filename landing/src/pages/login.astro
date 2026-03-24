@@ -1,0 +1,13 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+import SignInSection from '@/components/sections/signin-section';
+import DefaultLayout from '@/layouts/DefaultLayout.astro';
+---
+
+<DefaultLayout
+  title="Sign In - Plasma"
+  description="Sign in to your Plasma account"
+>
+  <SignInSection client:load />
+</DefaultLayout>

@@ -1,0 +1,24 @@
+services:
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - PRIVY_APP_ID=${PRIVY_APP_ID}
+      - PRIVY_APP_SECRET=${PRIVY_APP_SECRET}
+      - PRIVY_AUTH_PRIVATE_KEY=${PRIVY_AUTH_PRIVATE_KEY}
+      - X402_PAY_TO_ADDRESS=${X402_PAY_TO_ADDRESS}
+      - X402_NETWORK=${X402_NETWORK:-base-sepolia}
+    restart: unless-stopped
